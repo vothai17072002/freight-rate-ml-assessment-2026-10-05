@@ -10,7 +10,7 @@ import subprocess
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-FILES = ["README.md", "requirements.txt", "requirements-lock.txt", "score.py",
+FILES = [".gitignore", ".gitattributes", "README.md", "requirements.txt", "requirements-lock.txt", "score.py",
          "assessment.pdf", "validation_predictions.csv"]
 DIRECTORIES = ["src", "tests", "data", "experiments", "artifacts", "reports", "submission"]
 

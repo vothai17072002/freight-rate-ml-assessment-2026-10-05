@@ -1,0 +1,8 @@
+* text=auto eol=lf
+*.csv -text
+*.pdf binary
+*.png binary
+*.mp4 binary
+*.joblib binary
+# Keep the organizer's scorer byte-for-byte intact.
+score.py -text
