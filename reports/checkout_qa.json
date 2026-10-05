@@ -1,0 +1,19 @@
+{
+  "checkout_with_core_autocrlf": true,
+  "preserved_input_and_binary_hashes": {
+    "data/train_test.csv": "892980fd20bac7ac0ca4ec31d3981fca48d52dec88e4f02642ab955f1efb40fe",
+    "data/validation.csv": "f6cdc7c367b397b90b319fc7ad30fd0e1893fd6a714816dda54c303b0fe71151",
+    "data/validation_predictions_template.csv": "79de15adabcf807b8636b9b47ebe964d451fbcb343056c44a2c4b54a219891c6",
+    "data/december_chart_inputs.csv": "d4a0cba969e315eae3c967268914960547dc6589568e07bf6182551bdc267e6e",
+    "score.py": "f73af4f34acf0c43cdd6e2cd6b2c0ec8b9da4420fd6fdcd69bd86e14d4868634",
+    "assessment.pdf": "26c30f73c44fa6306c7bd2b8aa1dfc04b34ab044f6d122b2e6ccd634184ffd69",
+    "reports/freight_rate_report.pdf": "338bf58ca38d44bcd127a4c8634803231906b76f9d16c653a51c0dd10c523b51",
+    "artifacts/full_model.joblib": "355cc741d20e05d0652c74df9045b315ea1b27f1e3d8809b643fdfa66cbbf701",
+    "artifacts/reduced_model.joblib": "86494e089888cbb2493f55109980a4f6421627451ba59c92995d9a1eb4219ca5",
+    "validation_predictions.csv": "df9b75804cabfabed29b7422347200f3c16f8bfb377704abb2cd5d85bfc08f29",
+    "reports/walkthrough.mp4": "16efdc4e95f05acb9a816030c698a95f9d1096ca2a71219b603ae507fac2d308"
+  },
+  "fast_workflow_exit_code": 0,
+  "prediction_bytes_match": true,
+  "checkout_path": "C:\\Users\\HenVo\\AppData\\Local\\Temp\\freight-assessment-checkout-ha0hx92g"
+}

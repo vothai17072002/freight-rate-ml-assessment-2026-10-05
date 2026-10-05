@@ -177,7 +177,7 @@ establish repeated December seasonality.
 | `reports/model_comparison.png`, `reports/holdout_diagnostics.png`, `reports/feature_importance.png` | Additional diagnostic figures |
 | `reports/cold_city_stress.json` | Controlled unseen-city experiment and limits |
 | `reports/loom_script_en.md` | Suggested 2-3 minute recording script; script only, no hosted link |
-| `reports/walkthrough.mp4` | Optional AI-assisted narrated draft, when generated; no hosted Loom link |
+| `reports/walkthrough.mp4` | 2:31 AI-assisted draft with disclosed synthetic narration; no hosted Loom link |
 | `reports/candidate_notes_vi.md` | Vietnamese explanation for reviewing and presenting the work |
 
 Submit the repository URL, `validation_predictions.csv`, the PDF, and the
