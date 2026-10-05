@@ -1,0 +1,516 @@
+{
+  "created_utc": "2026-10-05T06:36:48.352809+00:00",
+  "selected_model": {
+    "name": "catboost_full_noquote_log_rpm",
+    "target": "log_rpm",
+    "params": {
+      "iterations": 700,
+      "depth": 6,
+      "learning_rate": 0.055,
+      "l2_leaf_reg": 5,
+      "loss_function": "RMSE",
+      "random_seed": 42,
+      "thread_count": 4,
+      "verbose": false,
+      "allow_writing_files": false
+    },
+    "spec": {
+      "algorithm": "catboost",
+      "target": "log_rpm",
+      "reduced": false,
+      "include_quote": false
+    },
+    "feature_policy": "Use shipment, location, calendar and available market_index; exclude load_id, target and unstable quote_signal."
+  },
+  "reduced_model": {
+    "name": "catboost_reduced_log_rpm",
+    "target": "log_rpm",
+    "params": {
+      "iterations": 700,
+      "depth": 6,
+      "learning_rate": 0.055,
+      "l2_leaf_reg": 5,
+      "loss_function": "RMSE",
+      "random_seed": 42,
+      "thread_count": 4,
+      "verbose": false,
+      "allow_writing_files": false
+    },
+    "spec": {
+      "algorithm": "catboost",
+      "target": "log_rpm",
+      "reduced": true,
+      "include_quote": false
+    },
+    "feature_policy": "Only pickup, delivery, distance, equipment, weight and date. No invented future market/quote values or coordinates."
+  },
+  "data_summary": {
+    "train_rows": 48000,
+    "train_start": "2025-01-01",
+    "train_end": "2025-10-31",
+    "selection_train_rows": 28806,
+    "selection_validation_rows": 9671,
+    "holdout_rows": 9523
+  },
+  "split": {
+    "selection": {
+      "train_start": "2025-01-01",
+      "train_end": "2025-06-30",
+      "train_rows": 28806,
+      "validation_start": "2025-07-01",
+      "validation_end": "2025-08-31",
+      "validation_rows": 9671
+    },
+    "holdout": {
+      "train_start": "2025-01-01",
+      "train_end": "2025-08-31",
+      "train_rows": 38477,
+      "validation_start": "2025-09-01",
+      "validation_end": "2025-10-31",
+      "validation_rows": 9523
+    },
+    "final": {
+      "train_rows": 48000,
+      "train_start": "2025-01-01",
+      "train_end": "2025-10-31"
+    },
+    "policy": "Selection uses January-June fit and July-August scores; configurations frozen before September-October evaluation; final refit uses all labeled rows."
+  },
+  "candidate_results": [
+    {
+      "name": "distance_times_quote_signal",
+      "eligible": false,
+      "rmse": 753.957462450645,
+      "mae": 367.2926189754937,
+      "wape": 0.15449392455490774,
+      "r2": 0.7441629386403681
+    },
+    {
+      "name": "ridge_full",
+      "eligible": false,
+      "rmse": 664.2982530495269,
+      "mae": 269.45392826871284,
+      "wape": 0.11334013458012775,
+      "r2": 0.8013923418678561
+    },
+    {
+      "name": "ridge_reduced",
+      "eligible": true,
+      "rmse": 700.4211053217344,
+      "mae": 339.1772128145991,
+      "wape": 0.14266776956609306,
+      "r2": 0.7792055169208199
+    },
+    {
+      "name": "catboost_full_raw",
+      "eligible": false,
+      "rmse": 651.1319240227698,
+      "mae": 186.62662517022548,
+      "wape": 0.07850056946259956,
+      "r2": 0.8091870933708993
+    },
+    {
+      "name": "catboost_full_log",
+      "eligible": false,
+      "rmse": 628.4626161117786,
+      "mae": 146.20837169133355,
+      "wape": 0.06149948019206973,
+      "r2": 0.8222421995855832
+    },
+    {
+      "name": "catboost_full_rpm_residual",
+      "eligible": false,
+      "rmse": 666.223093143647,
+      "mae": 212.12204122708775,
+      "wape": 0.08922468065157957,
+      "r2": 0.800239721545096
+    },
+    {
+      "name": "catboost_reduced_raw",
+      "eligible": true,
+      "rmse": 670.3581461631269,
+      "mae": 229.2263703880868,
+      "wape": 0.09641925740711738,
+      "r2": 0.7977523182050976
+    },
+    {
+      "name": "catboost_reduced_log_rpm",
+      "eligible": true,
+      "rmse": 643.9203765862027,
+      "mae": 202.16593272430688,
+      "wape": 0.08503685275517489,
+      "r2": 0.8133903464723823
+    },
+    {
+      "name": "ridge_full_noquote_raw",
+      "eligible": true,
+      "rmse": 694.2641395199424,
+      "mae": 334.697511879307,
+      "wape": 0.14078347747153358,
+      "r2": 0.7830701896040074
+    },
+    {
+      "name": "ridge_full_noquote_log_rpm",
+      "eligible": false,
+      "rmse": 675.0318523112963,
+      "mae": 288.5957560314499,
+      "wape": 0.12139174232130225,
+      "r2": 0.7949223642591057
+    },
+    {
+      "name": "ridge_reduced_log_rpm",
+      "eligible": false,
+      "rmse": 678.2588122727228,
+      "mae": 294.59878717771926,
+      "wape": 0.12391679126892179,
+      "r2": 0.7929569485061307
+    },
+    {
+      "name": "catboost_full_noquote_raw",
+      "eligible": true,
+      "rmse": 667.80305558828,
+      "mae": 221.9179826532257,
+      "wape": 0.09334513763178104,
+      "r2": 0.7992911264467399
+    },
+    {
+      "name": "catboost_full_noquote_log_rpm",
+      "eligible": true,
+      "rmse": 644.5376576413253,
+      "mae": 206.03842045184453,
+      "wape": 0.0866657333694568,
+      "r2": 0.8130323959537457
+    }
+  ],
+  "selection_results": {
+    "primary": {
+      "rmse": 644.5376576413253,
+      "mae": 206.03842045184453,
+      "wape": 0.0866657333694568,
+      "r2": 0.8130323959537457,
+      "params": {
+        "iterations": 700,
+        "depth": 6,
+        "learning_rate": 0.055,
+        "l2_leaf_reg": 5,
+        "loss_function": "RMSE",
+        "random_seed": 42,
+        "thread_count": 4,
+        "verbose": false,
+        "allow_writing_files": false
+      },
+      "importance_top10": [
+        [
+          "equipment",
+          20.635716665143796
+        ],
+        [
+          "sqrt_distance",
+          15.976305459778716
+        ],
+        [
+          "distance",
+          12.138463878612974
+        ],
+        [
+          "log_distance",
+          10.060473626782626
+        ],
+        [
+          "weight",
+          7.433415890071163
+        ],
+        [
+          "time_days",
+          4.651473675723407
+        ],
+        [
+          "market_index",
+          4.178756329414228
+        ],
+        [
+          "pickup_lat",
+          2.9406717522905677
+        ],
+        [
+          "day_of_year",
+          2.8283087466480286
+        ],
+        [
+          "delivery_lat",
+          2.3764596992395197
+        ]
+      ]
+    },
+    "reduced": {
+      "rmse": 643.9203765862027,
+      "mae": 202.16593272430688,
+      "wape": 0.08503685275517489,
+      "r2": 0.8133903464723823,
+      "params": {
+        "iterations": 700,
+        "depth": 6,
+        "learning_rate": 0.055,
+        "l2_leaf_reg": 5,
+        "loss_function": "RMSE",
+        "random_seed": 42,
+        "thread_count": 4,
+        "verbose": false,
+        "allow_writing_files": false
+      },
+      "importance_top10": [
+        [
+          "equipment",
+          23.274949729585963
+        ],
+        [
+          "distance",
+          14.04093368279871
+        ],
+        [
+          "sqrt_distance",
+          12.660263765470352
+        ],
+        [
+          "log_distance",
+          11.703971237616512
+        ],
+        [
+          "weight",
+          8.107711365572989
+        ],
+        [
+          "day_of_year",
+          5.052084970560866
+        ],
+        [
+          "delivery",
+          4.541583995896163
+        ],
+        [
+          "cos_365.25",
+          4.285996974192452
+        ],
+        [
+          "pickup",
+          4.211492023855322
+        ],
+        [
+          "time_days",
+          3.31803976480834
+        ]
+      ],
+      "high_rate_rows": 118,
+      "ordinary_rows_metrics": {
+        "rmse": 310.2695454159111,
+        "mae": 167.42791833829128,
+        "wape": 0.07119404907067602,
+        "r2": 0.947583097261964
+      }
+    }
+  },
+  "holdout_results": {
+    "full": {
+      "rows": 9523,
+      "rmse": 637.6641834789821,
+      "mae": 122.33144503350154,
+      "wape": 0.051132285476751395,
+      "r2": 0.8253996251972135
+    },
+    "reduced": {
+      "rows": 9523,
+      "rmse": 637.6063677080391,
+      "mae": 124.12777400776832,
+      "wape": 0.05188311782322793,
+      "r2": 0.825431285114475
+    },
+    "baseline": {
+      "rows": 9523,
+      "rmse": 670.6599545300177,
+      "mae": 229.09657316845033,
+      "wape": 0.09575813788340864,
+      "r2": 0.8068628254206316
+    }
+  },
+  "subgroup_metrics": {
+    "month": [
+      {
+        "group": "2025-09",
+        "rows": 4670,
+        "rmse": 621.0345777771818,
+        "mae": 119.95851673370245,
+        "wape": 0.04985032089493455,
+        "r2": 0.8337932015095284
+      },
+      {
+        "group": "2025-10",
+        "rows": 4853,
+        "rmse": 653.2671509665587,
+        "mae": 124.6148934489274,
+        "wape": 0.052380076693366175,
+        "r2": 0.8173504390172202
+      }
+    ],
+    "equipment": [
+      {
+        "group": "Dry Van",
+        "rows": 5360,
+        "rmse": 658.3475855116051,
+        "mae": 115.37243817030841,
+        "wape": 0.05057608012567874,
+        "r2": 0.8001098907806969
+      },
+      {
+        "group": "Flatbed",
+        "rows": 1770,
+        "rmse": 511.74939926084966,
+        "mae": 123.10520906330298,
+        "wape": 0.05045408901515016,
+        "r2": 0.8860771726146182
+      },
+      {
+        "group": "Reefer",
+        "rows": 2393,
+        "rmse": 673.5155188519668,
+        "mae": 137.3463695859322,
+        "wape": 0.052692141491679986,
+        "r2": 0.8278706840031615
+      }
+    ],
+    "weight_quality": [
+      {
+        "group": "missing_or_invalid",
+        "rows": 124,
+        "rmse": 253.58316718053464,
+        "mae": 108.22317620165524,
+        "wape": 0.045235454405245665,
+        "r2": 0.9699863921582327
+      },
+      {
+        "group": "valid",
+        "rows": 9399,
+        "rmse": 641.1955128688396,
+        "mae": 122.51757391265346,
+        "wape": 0.05121008145008823,
+        "r2": 0.823646575734533
+      }
+    ],
+    "city_coverage": [
+      {
+        "group": "seen_cities",
+        "rows": 9523,
+        "rmse": 637.6641834789821,
+        "mae": 122.33144503350154,
+        "wape": 0.051132285476751395,
+        "r2": 0.8253996251972135
+      }
+    ]
+  },
+  "december": {
+    "model": "catboost_reduced_log_rpm",
+    "feature_policy": "Dedicated six-input model; predictive scenario with unknown realized future market conditions.",
+    "input_rows": 31,
+    "start": "2025-12-01",
+    "end": "2025-12-31",
+    "limits": "No December labels exist locally. Calendar features encode cycles but a tree model does not extrapolate a new time trend. This is not a measured December accuracy claim.",
+    "minimum": 827.1,
+    "maximum": 855.33,
+    "mean": 838.3896774193548,
+    "file": "submission/december_chart_predictions.csv"
+  },
+  "reproducibility": {
+    "random_seed": 42,
+    "thread_count": 4,
+    "python": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]",
+    "source_train_sha256": "892980fd20bac7ac0ca4ec31d3981fca48d52dec88e4f02642ab955f1efb40fe",
+    "dependencies": {
+      "numpy": "2.5.3",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.9.1",
+      "catboost": "1.2.10",
+      "matplotlib": "3.11.2",
+      "joblib": "1.6.0",
+      "reportlab": "5.0.1"
+    },
+    "selection_rule": "Minimize July-August dollar RMSE within each quote-excluded input policy; MAE breaks ties. No September-October tuning.",
+    "model_hashes": {
+      "full_model.joblib": "355cc741d20e05d0652c74df9045b315ea1b27f1e3d8809b643fdfa66cbbf701",
+      "reduced_model.joblib": "86494e089888cbb2493f55109980a4f6421627451ba59c92995d9a1eb4219ca5"
+    }
+  },
+  "validation_output": {
+    "rows": 12000,
+    "columns": [
+      "load_id",
+      "predicted_rate"
+    ],
+    "minimum": 182.01,
+    "maximum": 6788.73,
+    "mean": 2349.6761016666665,
+    "file": "validation_predictions.csv",
+    "ground_truth_available": false
+  },
+  "cold_city_stress": {
+    "description": "Post-selection controlled cold-city stress. No model or feature selection is performed using these scores.",
+    "limits": "This measures July-August errors for eight deliberately excluded January-June cities. It is not actual November-December unseen-city accuracy and does not score September-October.",
+    "input_sha256": "892980fd20bac7ac0ca4ec31d3981fca48d52dec88e4f02642ab955f1efb40fe",
+    "selected_config_sha256": "1fcad15053da61eb93909d75b82c43fd4c38797c212201396a67034a3ae3277b",
+    "city_selection_rule": "Ascending SHA256 of UTF-8 city name, with name as tie-breaker; take the first eight cities in the January-June pickup/delivery union. No labels used to choose cities.",
+    "heldout_cities_in_hash_order": [
+      "Buffalo",
+      "Houston",
+      "Memphis",
+      "St. Louis",
+      "Detroit",
+      "Madison",
+      "Indianapolis",
+      "Lexington"
+    ],
+    "candidate_city_count": 64,
+    "model": {
+      "name": "catboost_full_noquote_log_rpm",
+      "spec": {
+        "algorithm": "catboost",
+        "target": "log_rpm",
+        "reduced": false,
+        "include_quote": false
+      },
+      "params": {
+        "iterations": 700,
+        "depth": 6,
+        "learning_rate": 0.055,
+        "l2_leaf_reg": 5,
+        "loss_function": "RMSE",
+        "random_seed": 42,
+        "thread_count": 4,
+        "verbose": false,
+        "allow_writing_files": false
+      }
+    },
+    "training": {
+      "original_january_june_rows": 28806,
+      "excluded_rows_touching_heldout_cities": 5912,
+      "retained_rows": 22894,
+      "date_min": "2025-01-01",
+      "date_max": "2025-06-30",
+      "retained_city_count": 56,
+      "heldout_city_overlap": 0
+    },
+    "stress": {
+      "original_july_august_rows": 9671,
+      "rows_touching_heldout_cities": 2004,
+      "date_min": "2025-07-01",
+      "date_max": "2025-08-31",
+      "rows_with_both_endpoints_heldout": 101
+    },
+    "metrics": {
+      "rows": 2004,
+      "rmse": 540.5409676453205,
+      "mae": 141.81502342965945,
+      "wape": 0.07037798864137965,
+      "r2": 0.8192855875168836
+    },
+    "preprocessing_policy": "Feature generation and numerical imputation use src.model.FreightModel; imputation medians are fitted on retained January-June training rows only. quote_signal is excluded.",
+    "elapsed_seconds": 54.339
+  }
+}

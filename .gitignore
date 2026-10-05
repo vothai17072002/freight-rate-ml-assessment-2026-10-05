@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+catboost_info/
+reports/rendered/
+reports/video_assets/
+submission/manifest.json
+artifacts/*.cbm
+*.zip
+.DS_Store

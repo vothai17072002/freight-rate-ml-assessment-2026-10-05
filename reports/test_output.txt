@@ -1,0 +1,12 @@
+Wrote 6 predictions: C:\Users\HenVo\AppData\Local\Temp\tmpv4kw4skj\predictions.csv
+Wrote 2 December predictions: C:\Users\HenVo\AppData\Local\Temp\tmpv4kw4skj\december.csv
+test_inference_does_not_refit_training_medians (test_pipeline.PipelineTests.test_inference_does_not_refit_training_medians) ... ok
+test_invalid_weight_and_distance (test_pipeline.PipelineTests.test_invalid_weight_and_distance) ... ok
+test_prediction_uses_id_mapping_not_row_position (test_pipeline.PipelineTests.test_prediction_uses_id_mapping_not_row_position) ... ok
+test_selected_model_features_match_recorded_benchmarks (test_pipeline.PipelineTests.test_selected_model_features_match_recorded_benchmarks) ... ok
+test_target_and_id_never_enter_features_and_no_quote_policy (test_pipeline.PipelineTests.test_target_and_id_never_enter_features_and_no_quote_policy) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.348s
+
+OK

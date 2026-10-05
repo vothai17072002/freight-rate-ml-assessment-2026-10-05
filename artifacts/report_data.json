@@ -1,0 +1,354 @@
+{
+  "summary": {
+    "subtitle": "Machine Learning Engineer Assessment\nA documented workflow from raw inputs to reproducible predictions.",
+    "cards": [
+      {
+        "value": "$637.66",
+        "label": "Primary model holdout RMSE"
+      },
+      {
+        "value": "$122.33",
+        "label": "Primary model holdout MAE"
+      },
+      {
+        "value": "5.11%",
+        "label": "Primary model holdout WAPE"
+      }
+    ],
+    "decision": [
+      "Use catboost_full_noquote_log_rpm for the 12,000 November-December loads, then use catboost_reduced_log_rpm for the fixed December scenario whose input schema has fewer fields.",
+      "Choose model configurations on a July-August temporal selection window, evaluate the frozen choice on September-October, and refit the two selected configurations on all January-October labeled rows for submission."
+    ],
+    "findings": [
+      "The dataset calls for future-period validation: the labeled development data ends in October and the final labels are withheld for November-December.",
+      "Weights contain missing and nonpositive values, new cities appear in validation, and the quote signal changes its relationship with price between development months. These are explicit pipeline and feature-policy decisions.",
+      "The primary model lowers holdout RMSE by 4.9% versus the distance/equipment baseline. This is an internal retrospective result, not the organizer's unseen validation score."
+    ],
+    "caveat": "The supplied scorer checks IDs, schema, finite positive predictions and the December grid. It does not calculate accuracy. November-December prediction accuracy remains unknown until the organizer scores the withheld labels."
+  },
+  "data": {
+    "introduction": "Audit all supplied files without modifying them. Preserve the identifier and input schemas, and keep source hashes so the results can be tied to the exact inputs.",
+    "scope_headers": [
+      "Input",
+      "Rows",
+      "Dates",
+      "Role"
+    ],
+    "scope_rows": [
+      [
+        "train_test.csv",
+        "48,000",
+        "2025-01-01 to 2025-10-31",
+        "Labeled development data"
+      ],
+      [
+        "validation.csv",
+        "12,000",
+        "2025-11-01 to 2025-12-31",
+        "Final prediction only; no labels"
+      ],
+      [
+        "December chart inputs",
+        "31",
+        "2025-12-01 to 2025-12-31",
+        "Fixed lane scenario; fewer features"
+      ]
+    ],
+    "quality_headers": [
+      "Issue",
+      "Train / validation",
+      "Treatment or implication"
+    ],
+    "quality_rows": [
+      [
+        "Missing weight",
+        "300 / 165",
+        "Keep a missing/invalid flag; impute numeric values using training-only medians."
+      ],
+      [
+        "Nonpositive weight",
+        "292 / 145",
+        "Treat as missing. Do not take absolute values or discard the full load."
+      ],
+      [
+        "Missing market_index",
+        "374 / 249",
+        "Training-only numeric imputation plus a missingness indicator in the primary model."
+      ],
+      [
+        "Duplicate identifiers / rows",
+        "0 / 0 extra ID rows; 0 / 0 exact duplicate rows",
+        "Keep every supplied load; preserve the template's order when writing predictions."
+      ],
+      [
+        "Unseen locations and lanes",
+        "8 new cities; 1,447 affected rows",
+        "1,461 validation loads also have an unseen directed lane. Support unseen categorical values; the primary model retains supplied geography."
+      ],
+      [
+        "Rare expensive targets",
+        "Maximum $25,533.00",
+        "Retain labeled rates: size alone does not prove an error. Compare losses/target transforms and inspect error concentration."
+      ]
+    ],
+    "notes": [
+      "The audit finds no numeric parse failures, nonfinite numeric inputs, invalid ISO dates, overlapping load IDs or exact duplicate rows. Coordinate checks verify mathematical bounds only; geographic correctness is unverified.",
+      "Counts above describe source inputs. Data-quality transformations are fitted independently inside each training partition, then reused unchanged on its later evaluation partition."
+    ]
+  },
+  "features": {
+    "introduction": "One deterministic feature function is shared by training and inference. load_id is used only to align outputs; posted_rate is the target and never enters the feature matrix.",
+    "headers": [
+      "Group",
+      "Derived or retained features",
+      "Availability"
+    ],
+    "rows": [
+      [
+        "Shipment / lane",
+        "Distance, log/square-root distance, cleaned weight, weight missingness; pickup, delivery, equipment and directed lane",
+        "Primary and reduced models"
+      ],
+      [
+        "Calendar",
+        "Day of week/month/year, days from a fixed origin, weekend flag; weekly, annual and monthly sine/cosine terms",
+        "Derived only from supplied date"
+      ],
+      [
+        "Geography",
+        "Supplied pickup/delivery coordinates and coordinate differences",
+        "Primary model only"
+      ],
+      [
+        "Market",
+        "market_index and its missingness flag",
+        "Primary model only"
+      ],
+      [
+        "Quote signal",
+        "Excluded from both submission models; quote-based candidates remain diagnostic benchmarks",
+        "Provenance and stability unresolved"
+      ],
+      [
+        "Missing values",
+        "Categorical missing token; training-only numeric medians; no future-data lookup table",
+        "Fitted on training partition only"
+      ]
+    ],
+    "rationale": [
+      "CatBoost learns nonlinear shipment, calendar and location interactions and supports unseen categories. Ridge provides a regularized comparator with one-hot categories and distance interactions.",
+      "The model fits log(posted_rate / distance), then exponentiates and multiplies by the supplied distance. This keeps the rate-per-mile structure while selection uses RMSE in dollars.",
+      "Fixed configuration: 700 iterations, depth 6, learning rate 0.055, seed 42. Select by dollar RMSE; the later holdout does not tune features, loss or stopping."
+    ],
+    "availability": [
+      "January-August quote_signal associations reverse sign and become nearly zero in August. Exclude this unstable field conservatively; the observations do not prove target leakage. Observed rate per mile remains a training target/diagnostic only."
+    ],
+    "caveat": "Signal definitions and timestamps are unspecified. The primary model assumes market_index is available before pricing. Verify its calculation and timing before operational use."
+  },
+  "evaluation": {
+    "introduction": "Preserve time order to match the organizer's future-period task. Keep September-October separate from candidate comparison, then evaluate the frozen selections once on that later window.",
+    "split_headers": [
+      "Stage",
+      "Training data",
+      "Later data / use"
+    ],
+    "split_rows": [
+      [
+        "Candidate selection",
+        "Jan-Jun 2025: 28,806 rows",
+        "Jul-Aug 2025: 9,671 rows; select models"
+      ],
+      [
+        "Locked holdout",
+        "Jan-Aug 2025: 38,477 rows",
+        "Sep-Oct 2025: 9,523 rows; report accuracy"
+      ],
+      [
+        "Final refit",
+        "Jan-Oct 2025: 48,000 rows",
+        "Nov-Dec: 12,000 unlabelled rows; no tuning"
+      ]
+    ],
+    "result_headers": [
+      "Model",
+      "Evaluation window",
+      "RMSE ($)",
+      "MAE ($)",
+      "WAPE"
+    ],
+    "result_widths": [
+      0.28,
+      0.25,
+      0.16,
+      0.16,
+      0.15
+    ],
+    "result_rows": [
+      [
+        "Primary selected model",
+        "Jul-Aug selection",
+        "644.54",
+        "206.04",
+        "8.67%"
+      ],
+      [
+        "Reduced-input model",
+        "Jul-Aug selection",
+        "643.92",
+        "202.17",
+        "8.50%"
+      ],
+      [
+        "Distance/equipment baseline",
+        "Sep-Oct holdout",
+        "670.66",
+        "229.10",
+        "9.58%"
+      ],
+      [
+        "Primary selected model",
+        "Sep-Oct holdout",
+        "637.66",
+        "122.33",
+        "5.11%"
+      ],
+      [
+        "Reduced-input model",
+        "Sep-Oct holdout",
+        "637.61",
+        "124.13",
+        "5.19%"
+      ]
+    ],
+    "notes": [
+      "Primary configuration: catboost_full_noquote_log_rpm. Reduced configuration: catboost_reduced_log_rpm. All candidate results and configurations are retained in artifacts/metrics.json and experiments/results.json.",
+      "RMSE = sqrt(mean squared dollar error); MAE = mean absolute dollar error; WAPE = sum absolute error / sum observed rates. Selection and holdout results use different training histories and are not interchangeable."
+    ],
+    "interpretation": [
+      "Primary holdout R-squared is 0.8254. This summarizes the supplied development period; it cannot establish performance on new cities or market conditions in November-December."
+    ],
+    "stress_notes": [
+      "Controlled cold-city stress: deterministically select 8 January-June cities without labels, remove all training loads touching them, and refit the already selected primary configuration on 22,894 retained rows.",
+      "Evaluate 2,004 July-August loads touching those cities: RMSE $540.54, MAE $141.82, WAPE 7.04%. This post-selection test does not tune the model and does not measure the actual November-December unseen cities."
+    ]
+  },
+  "diagnostics": {
+    "introduction": "Every September-October label is retained. Inspect month, equipment and weight-quality slices rather than relying on the aggregate score alone.",
+    "headers": [
+      "Holdout group",
+      "Rows",
+      "RMSE ($)",
+      "WAPE"
+    ],
+    "rows": [
+      [
+        "2025-09",
+        "4,670",
+        "621.03",
+        "4.99%"
+      ],
+      [
+        "2025-10",
+        "4,853",
+        "653.27",
+        "5.24%"
+      ],
+      [
+        "Dry Van",
+        "5,360",
+        "658.35",
+        "5.06%"
+      ],
+      [
+        "Flatbed",
+        "1,770",
+        "511.75",
+        "5.05%"
+      ],
+      [
+        "Reefer",
+        "2,393",
+        "673.52",
+        "5.27%"
+      ],
+      [
+        "Missing / inValid weight weight",
+        "124",
+        "253.58",
+        "4.52%"
+      ],
+      [
+        "Valid weight",
+        "9,399",
+        "641.20",
+        "5.12%"
+      ]
+    ],
+    "stress_notes": [
+      "Controlled cold-city stress: deterministically select 8 January-June cities without labels, remove all training loads touching them, and refit the already selected primary configuration on 22,894 retained rows.",
+      "Evaluate 2,004 July-August loads touching those cities: RMSE $540.54, MAE $141.82, WAPE 7.04%. This post-selection test does not tune the model and does not measure the actual November-December unseen cities."
+    ],
+    "chart_path": "reports/holdout_diagnostics.png",
+    "caption": "All-label holdout diagnostics: the observed/predicted panel uses log axes for visibility; the error histogram stays in original dollar units. Rare expensive loads account for substantial dollar-error tails."
+  },
+  "december": {
+    "introduction": "Predict 31 daily loads from Lexington to Fort Wayne, keeping distance at 360 miles, equipment as Dry Van and weight at 32,000 lb. Only the supplied date varies.",
+    "chart_path": "reports/scorer_results/candidate_december.png",
+    "caption": "Figure: candidate_december.png generated by the organizer's unmodified score.py from the completed December CSV.",
+    "method": [
+      "The scenario has no coordinates, market_index or quote_signal. Use the separately selected catboost_reduced_log_rpm, which is trained and evaluated using the same six base input columns, rather than supplying invented future signals.",
+      "The reduced model shares shipment, lane and calendar transformations with the primary model. It needs no external city lookup, forecast market index or future quote. Refit it on all January-October labeled rows before producing December predictions.",
+      "The reduced model's September-October RMSE is $637.61. That result measures its complete reduced feature contract across the held-out loads, not accuracy for this particular December lane."
+    ],
+    "caveat": "This is a model scenario, not an observed December price curve. Daily shape reflects learned calendar effects under fixed inputs. One year of January-October history cannot establish a repeated December seasonal pattern, and market changes remain unobserved here."
+  },
+  "reproducibility": {
+    "introduction": "The repository contains the feature/model code, fixed development protocol, recorded metrics, final predictions and the report source. Follow README.md to reproduce the submission; the candidate records and submits their own Loom walkthrough.",
+    "artifact_headers": [
+      "Artifact",
+      "Purpose"
+    ],
+    "artifact_rows": [
+      [
+        "validation_predictions.csv",
+        "Exactly load_id,predicted_rate; 12,000 loads aligned to the supplied template"
+      ],
+      [
+        "submission/december_chart_predictions.csv",
+        "31 completed daily rows; original seven-column schema preserved"
+      ],
+      [
+        "artifacts/full_model.joblib / reduced_model.joblib",
+        "Final refitted models and training-only preprocessing state"
+      ],
+      [
+        "artifacts/metrics.json",
+        "Candidate selection, holdout scores, configuration and reproduction metadata"
+      ],
+      [
+        "reports/data_audit.json",
+        "Input hashes, quality counts and distribution checks"
+      ],
+      [
+        "reports/freight_rate_report.pdf",
+        "This report, including the complete official December chart"
+      ]
+    ],
+    "commands": [
+      "python -m pip install -r requirements.txt",
+      "python -m src.run_all",
+      "python -m src.train --recompute-selection"
+    ],
+    "verification": [
+      "The default complete workflow audits inputs, trains/refits selected configurations, writes both prediction files, runs the original scorer and regenerates this PDF. Recompute selection to independently rerun the recorded candidate comparison.",
+      "Official scorer acceptance establishes file structure and finite positive predictions. Meaningful pipeline tests additionally cover input sanitization, target/ID exclusion, missing values and the reduced-input schema."
+    ],
+    "limitations": [
+      "Future labels are unavailable. Temporal holdout is a defensible retrospective estimate, but final period performance is still unknown.",
+      "All holdout cities are represented in its training history. A separate controlled cold-city stress provides supporting evidence, without establishing accuracy on the actual new validation cities.",
+      "Rare expensive loads can dominate dollar RMSE. Preserve them, inspect subgroup errors and validate unusual source prices before deciding on any future removal or correction policy.",
+      "Before operational use, verify signal timestamps, collect additional seasonal cycles and backtest on several rolling origin windows, including truly unseen locations."
+    ],
+    "provenance": "Evidence: supplied assessment PDF/README and unchanged scorer; recorded read-only data audit; recorded July-August candidate results and September-October holdout results. Input/model hashes, package versions, random seed and thread count are recorded in artifacts/metrics.json."
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "primary": {
+    "name": "catboost_full_noquote_log_rpm",
+    "spec": {
+      "algorithm": "catboost",
+      "target": "log_rpm",
+      "reduced": false,
+      "include_quote": false
+    }
+  },
+  "reduced": {
+    "name": "catboost_reduced_log_rpm",
+    "spec": {
+      "algorithm": "catboost",
+      "target": "log_rpm",
+      "reduced": true,
+      "include_quote": false
+    }
+  },
+  "params": {
+    "iterations": 700,
+    "depth": 6,
+    "learning_rate": 0.055,
+    "l2_leaf_reg": 5,
+    "loss_function": "RMSE",
+    "random_seed": 42,
+    "thread_count": 4,
+    "verbose": false,
+    "allow_writing_files": false
+  },
+  "input_sha256": "892980fd20bac7ac0ca4ec31d3981fca48d52dec88e4f02642ab955f1efb40fe",
+  "selection_rule": "Minimize July-August dollar RMSE within each quote-excluded input policy; MAE breaks ties. No September-October tuning."
+}

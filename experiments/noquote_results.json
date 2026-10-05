@@ -1,0 +1,155 @@
+{
+  "scope": "Jan-Jun training; Jul-Aug selection; September/October excluded",
+  "models": {
+    "ridge_full_noquote_raw": {
+      "rmse": 694.2641395199424,
+      "mae": 334.697511879307,
+      "wape": 0.14078347747153358,
+      "r2": 0.7830701896040074
+    },
+    "ridge_full_noquote_log_rpm": {
+      "rmse": 675.0318523112963,
+      "mae": 288.5957560314499,
+      "wape": 0.12139174232130225,
+      "r2": 0.7949223642591057
+    },
+    "ridge_reduced_log_rpm": {
+      "rmse": 678.2588122727228,
+      "mae": 294.59878717771926,
+      "wape": 0.12391679126892179,
+      "r2": 0.7929569485061307,
+      "december_chart_minmax_sanity": [
+        1066.5144881879419,
+        1138.845210617442
+      ]
+    },
+    "catboost_full_noquote_raw": {
+      "rmse": 667.80305558828,
+      "mae": 221.9179826532257,
+      "wape": 0.09334513763178104,
+      "r2": 0.7992911264467399,
+      "params": {
+        "iterations": 700,
+        "depth": 6,
+        "learning_rate": 0.055,
+        "l2_leaf_reg": 5,
+        "loss_function": "RMSE",
+        "random_seed": 42,
+        "thread_count": 4,
+        "verbose": false,
+        "allow_writing_files": false
+      },
+      "importance_top10": [
+        [
+          "sqrt_distance",
+          29.2819028650019
+        ],
+        [
+          "log_distance",
+          27.309679081929698
+        ],
+        [
+          "distance",
+          25.110025532693513
+        ],
+        [
+          "equipment",
+          3.994977442290977
+        ],
+        [
+          "weight",
+          1.6522958031901664
+        ],
+        [
+          "delta_lon",
+          1.5468108223872592
+        ],
+        [
+          "cos_365.25",
+          1.4703179477859503
+        ],
+        [
+          "market_index",
+          1.140261979461917
+        ],
+        [
+          "day_of_year",
+          0.9391346113112341
+        ],
+        [
+          "pickup",
+          0.8828484716001046
+        ]
+      ]
+    },
+    "catboost_full_noquote_log_rpm": {
+      "rmse": 644.5376576413253,
+      "mae": 206.03842045184453,
+      "wape": 0.0866657333694568,
+      "r2": 0.8130323959537457,
+      "params": {
+        "iterations": 700,
+        "depth": 6,
+        "learning_rate": 0.055,
+        "l2_leaf_reg": 5,
+        "loss_function": "RMSE",
+        "random_seed": 42,
+        "thread_count": 4,
+        "verbose": false,
+        "allow_writing_files": false
+      },
+      "importance_top10": [
+        [
+          "equipment",
+          20.635716665143796
+        ],
+        [
+          "sqrt_distance",
+          15.976305459778716
+        ],
+        [
+          "distance",
+          12.138463878612974
+        ],
+        [
+          "log_distance",
+          10.060473626782626
+        ],
+        [
+          "weight",
+          7.433415890071163
+        ],
+        [
+          "time_days",
+          4.651473675723407
+        ],
+        [
+          "market_index",
+          4.178756329414228
+        ],
+        [
+          "pickup_lat",
+          2.9406717522905677
+        ],
+        [
+          "day_of_year",
+          2.8283087466480286
+        ],
+        [
+          "delivery_lat",
+          2.3764596992395197
+        ]
+      ]
+    }
+  },
+  "input_sha256": "892980fd20bac7ac0ca4ec31d3981fca48d52dec88e4f02642ab955f1efb40fe",
+  "split": {
+    "training_start_inclusive": "2025-01-01",
+    "training_end_inclusive": "2025-06-30",
+    "selection_start_inclusive": "2025-07-01",
+    "selection_end_inclusive": "2025-08-31",
+    "excluded_holdout_start_inclusive": "2025-09-01",
+    "excluded_holdout_end_inclusive": "2025-10-31"
+  },
+  "seed": 42
+}

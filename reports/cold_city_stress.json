@@ -1,0 +1,63 @@
+{
+  "description": "Post-selection controlled cold-city stress. No model or feature selection is performed using these scores.",
+  "limits": "This measures July-August errors for eight deliberately excluded January-June cities. It is not actual November-December unseen-city accuracy and does not score September-October.",
+  "input_sha256": "892980fd20bac7ac0ca4ec31d3981fca48d52dec88e4f02642ab955f1efb40fe",
+  "selected_config_sha256": "1fcad15053da61eb93909d75b82c43fd4c38797c212201396a67034a3ae3277b",
+  "city_selection_rule": "Ascending SHA256 of UTF-8 city name, with name as tie-breaker; take the first eight cities in the January-June pickup/delivery union. No labels used to choose cities.",
+  "heldout_cities_in_hash_order": [
+    "Buffalo",
+    "Houston",
+    "Memphis",
+    "St. Louis",
+    "Detroit",
+    "Madison",
+    "Indianapolis",
+    "Lexington"
+  ],
+  "candidate_city_count": 64,
+  "model": {
+    "name": "catboost_full_noquote_log_rpm",
+    "spec": {
+      "algorithm": "catboost",
+      "target": "log_rpm",
+      "reduced": false,
+      "include_quote": false
+    },
+    "params": {
+      "iterations": 700,
+      "depth": 6,
+      "learning_rate": 0.055,
+      "l2_leaf_reg": 5,
+      "loss_function": "RMSE",
+      "random_seed": 42,
+      "thread_count": 4,
+      "verbose": false,
+      "allow_writing_files": false
+    }
+  },
+  "training": {
+    "original_january_june_rows": 28806,
+    "excluded_rows_touching_heldout_cities": 5912,
+    "retained_rows": 22894,
+    "date_min": "2025-01-01",
+    "date_max": "2025-06-30",
+    "retained_city_count": 56,
+    "heldout_city_overlap": 0
+  },
+  "stress": {
+    "original_july_august_rows": 9671,
+    "rows_touching_heldout_cities": 2004,
+    "date_min": "2025-07-01",
+    "date_max": "2025-08-31",
+    "rows_with_both_endpoints_heldout": 101
+  },
+  "metrics": {
+    "rows": 2004,
+    "rmse": 540.5409676453205,
+    "mae": 141.81502342965945,
+    "wape": 0.07037798864137965,
+    "r2": 0.8192855875168836
+  },
+  "preprocessing_policy": "Feature generation and numerical imputation use src.model.FreightModel; imputation medians are fitted on retained January-June training rows only. quote_signal is excluded.",
+  "elapsed_seconds": 54.339
+}

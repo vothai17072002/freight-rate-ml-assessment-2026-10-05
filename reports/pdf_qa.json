@@ -1,0 +1,45 @@
+{
+  "page_count": 6,
+  "pages": [
+    {
+      "page": 1,
+      "text_characters": 1592,
+      "embedded_images": 0
+    },
+    {
+      "page": 2,
+      "text_characters": 1898,
+      "embedded_images": 0
+    },
+    {
+      "page": 3,
+      "text_characters": 2141,
+      "embedded_images": 0
+    },
+    {
+      "page": 4,
+      "text_characters": 2031,
+      "embedded_images": 0
+    },
+    {
+      "page": 5,
+      "text_characters": 1411,
+      "embedded_images": 1
+    },
+    {
+      "page": 6,
+      "text_characters": 2565,
+      "embedded_images": 0
+    }
+  ],
+  "text_blocks_outside_page": [],
+  "missing_required_sections": [],
+  "automated_checks_passed": true,
+  "scope": "Selectable-text and page-bound checks only; inspect rendered page images for visual layout.",
+  "visual_review": {
+    "review_date": "2026-10-05",
+    "method": "Headless PyMuPDF rendering; all six page images visually inspected",
+    "passed": true,
+    "findings": "No clipped text, overflowing tables, orphan paragraphs or obscured footer; official December chart included in full at preserved aspect ratio."
+  }
+}
