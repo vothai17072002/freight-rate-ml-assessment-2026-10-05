@@ -1,7 +1,7 @@
 # Freight Rate Prediction Challenge
 
-Private repository: [vothai17072002/freight-rate-ml-assessment-2026-10-05](https://github.com/vothai17072002/freight-rate-ml-assessment-2026-10-05).
-Grant the reviewer access before submitting this private URL.
+Public repository: [vothai17072002/freight-rate-ml-assessment-2026-10-05](https://github.com/vothai17072002/freight-rate-ml-assessment-2026-10-05).
+The hiring manager can open this public URL directly; no invitation is required.
 
 This solution predicts `posted_rate` for the 12,000 supplied November-December
 2025 loads. It contains a read-only input audit, a reproducible temporal
