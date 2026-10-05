@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "scope": "Independent verification of replacing synthetic narration only; no original inputs or videos modified.",
+  "checks": {
+    "original_whole_mp4_unchanged": true,
+    "new_mp4_matches_new_metadata": true,
+    "encoded_video_payload_identical": true,
+    "all_video_packet_lines_identical": true,
+    "video_timebase_extradata_dimensions_codec_identical": true,
+    "full_video_framehash_stdout_identical": true,
+    "container_duration_identical": true,
+    "six_narration_strings_exactly_identical": true,
+    "slide_metadata_timing_identical": true,
+    "original_slide_pngs_unchanged": true,
+    "encoded_audio_changed": true,
+    "new_video_and_audio_full_decode_passed": true,
+    "new_metadata_uses_microsoft_david": true
+  },
+  "video": {
+    "original_file": "reports\\walkthrough.mp4",
+    "new_file": "reports\\walkthrough_male.mp4",
+    "resolution": [
+      1280,
+      720
+    ],
+    "fps": 24,
+    "container_duration_seconds": 151.15,
+    "packet_count_original": 3627,
+    "packet_count_new": 3627,
+    "encoded_video_sha256": "51d85d550df10f53be8e6baf7a702acf7c4fcf2d23c98f1939701d1c9c9e68e2",
+    "timed_packet_table_sha256": "8ea9eb0578900776ca9d5d0ebb4b0db419fe250fc980f3fe1e8d009adff8c034",
+    "original_whole_mp4_sha256": "16efdc4e95f05acb9a816030c698a95f9d1096ca2a71219b603ae507fac2d308",
+    "new_whole_mp4_sha256": "01a01472d806492c95a2d251a247ce999c397a93519a7c20b6437b7d6bf91002",
+    "first_timed_packet": "0,       -741,        283,      512,    34956, 9864c384a3474e8ee5d214b8a3420fd31f59414c7d4e3109355cfe59d23d80dd",
+    "stream_info": "Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 1280x720, 50 kb/s, 24 fps, 24 tbr, 12288 tbn (default)"
+  },
+  "audio": {
+    "voice_from_metadata": "Microsoft David Desktop",
+    "installed_voice_registry_gender": "Male",
+    "original_encoded_audio_sha256": "ccc0297e43ddb0b96b0a4a74b2777172e7b052d9c09c2751d362d8d60d91d967",
+    "new_encoded_audio_sha256": "171e302a6d827fe0fc790105f8e185693814ce09291f556eb11a50d11137e429",
+    "decode_errors": ""
+  },
+  "narration": {
+    "count": 6,
+    "normalized_exact_text_sha256": "2e5296f1dc7299eace295a7bdfbf1edfbb6e164039253aebd3cd3bef16ee1377",
+    "slide_starts_seconds": [
+      0.0,
+      24.0417,
+      50.4167,
+      73.8333,
+      101.0833,
+      125.8333
+    ]
+  },
+  "method": "imageio-ffmpeg 7.1: encoded stream SHA256, copyts framehash comparison for every packet (DTS/PTS/duration/size/payload), container metadata inspection, exact transcript/source-image comparison, full audio+video decode with -xerror."
+}

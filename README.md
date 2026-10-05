@@ -178,12 +178,23 @@ establish repeated December seasonality.
 | `reports/cold_city_stress.json` | Controlled unseen-city experiment and limits |
 | `reports/loom_script_en.md` | Suggested 2-3 minute recording script; script only, no hosted link |
 | `reports/walkthrough.mp4` | 2:31 AI-assisted draft with disclosed synthetic narration; no hosted Loom link |
+| `reports/walkthrough_male.mp4` | Same video and slide timings, with Microsoft David male narration |
 | `reports/candidate_notes_vi.md` | Vietnamese explanation for reviewing and presenting the work |
 
 Submit the repository URL, `validation_predictions.csv`, the PDF, and the
 candidate's actual Loom link. Add the reviewer's GitHub access if using a private
 repository. The provided instructions contain no stated score threshold or
 submission deadline.
+
+To recreate the male narration variant while preserving the original encoded
+video, timestamps and transcript:
+
+```powershell
+.\.venv\Scripts\python.exe -m src.change_walkthrough_voice
+```
+
+This uses the same six speech windows as the original walkthrough and stores
+verification in `reports/walkthrough_male_metadata.json`.
 
 Before operational use, verify that `market_index` is available before pricing,
 review extreme source rates, collect additional seasonal cycles and evaluate

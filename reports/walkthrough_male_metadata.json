@@ -1,0 +1,157 @@
+{
+  "status": "local upload draft; no Loom upload or link has been created",
+  "disclosure": "Prepared with AI assistance; Microsoft David male synthetic narration; no claim to be the candidate's own voice.",
+  "video_file": "reports/walkthrough_male.mp4",
+  "duration_seconds": 151.15,
+  "audio_seconds_from_wav_frames": 146.9425,
+  "resolution": [
+    1280,
+    720
+  ],
+  "fps": 24,
+  "video_codec": "H.264",
+  "audio_codec": "AAC",
+  "voice": "Microsoft David Desktop",
+  "speech_rate": 2,
+  "narration_word_count": 394,
+  "build_command": ".venv\\Scripts\\python.exe -m src.change_walkthrough_voice",
+  "requirements": "Windows System.Speech + Microsoft David Desktop; imageio-ffmpeg",
+  "headless": true,
+  "decode_check": "Full MP4 decoded by ffmpeg with no errors",
+  "verified_frame_files": [
+    "reports/video_assets/verified_frame_01.png",
+    "reports/video_assets/verified_frame_05.png",
+    "reports/video_assets/verified_frame_06.png"
+  ],
+  "source_sha256": {
+    "artifacts\\metrics.json": "11eb0e40709d853783d59682137d6ee884fe3dfb2e746ffbd82bddb9a4f3ce38",
+    "src\\features.py": "70cc6f2d006d60f591b12bd1df215a2f139ad51a7a83b6fac26bc91d2b6edbd6",
+    "src\\model.py": "6a3560ea6677ef02736386fdaf5a74593f0e0d3e5e552ad6aed7c4ee70ea8848",
+    "src\\train.py": "812898533d9ebdd9979593f48b3b8002d71b97602adfc2d82467f3800c5ab848",
+    "src\\run_all.py": "13810e60c4f0350796a034a7eacb58ce26d12685741744339930b0a3e557b22b",
+    "reports\\scorer_results\\candidate_december.png": "fa4432d6fa5952a1ab4fdc1b26149619c86b75e62b0f94a65648c4581113f4b1"
+  },
+  "mp4_sha256": "01a01472d806492c95a2d251a247ce999c397a93519a7c20b6437b7d6bf91002",
+  "slides": [
+    {
+      "number": 1,
+      "narration": "This walkthrough is a local upload draft, prepared with AI assistance and synthetic narration. The task predicts a freight load's posted rate. Forty eight thousand labeled loads cover January through October, and twelve thousand unlabeled loads cover November and December. The solution fits January through June, selects on July and August, and freezes configuration before September and October evaluation. The final refit uses all labeled history.",
+      "wave_path": "C:\\Users\\HenVo\\Downloads\\freight-rate-assessment-solution\\reports\\video_assets\\male_voice\\fitted_01.wav",
+      "image_path": "C:\\Users\\HenVo\\Downloads\\freight-rate-assessment-solution\\reports\\video_assets\\slide_01.png",
+      "audio_seconds": 23.345,
+      "start_seconds": 0.0,
+      "duration_seconds": 24.041666666666668
+    },
+    {
+      "number": 2,
+      "narration": "Data checks found three hundred missing weights, two hundred ninety two negative weights, and three hundred seventy four missing market values. Invalid weights become missing, with a quality indicator. Numerical medians come only from training rows. Positive price outliers stay in the data and scores. Quote signal shows unstable monthly relationships, including reversals, so the production models exclude it. This is evidence of proxy instability, not proof of leakage.",
+      "wave_path": "C:\\Users\\HenVo\\Downloads\\freight-rate-assessment-solution\\reports\\video_assets\\male_voice\\fitted_02.wav",
+      "image_path": "C:\\Users\\HenVo\\Downloads\\freight-rate-assessment-solution\\reports\\video_assets\\slide_02.png",
+      "audio_seconds": 25.6595,
+      "start_seconds": 24.0417,
+      "duration_seconds": 26.375
+    },
+    {
+      "number": 3,
+      "narration": "Among quote excluded candidates, CatBoost predicts the logarithm of dollars per mile. This separates distance scaling from equipment, weight, route, calendar, and market effects. Prediction restores dollars by exponentiating and multiplying by distance. The configuration uses seven hundred iterations, depth six, and seed forty two. Selection uses dollar R M S E; configurations remain fixed for the later holdout.",
+      "wave_path": "C:\\Users\\HenVo\\Downloads\\freight-rate-assessment-solution\\reports\\video_assets\\male_voice\\fitted_03.wav",
+      "image_path": "C:\\Users\\HenVo\\Downloads\\freight-rate-assessment-solution\\reports\\video_assets\\slide_03.png",
+      "audio_seconds": 22.7098,
+      "start_seconds": 50.4167,
+      "duration_seconds": 23.416666666666668
+    },
+    {
+      "number": 4,
+      "narration": "On nine thousand five hundred twenty three untouched September and October loads, R M S E is 637.66 dollars, M A E is 122.33 dollars, and weighted absolute percentage error is 5.11 percent. A separate, controlled test excludes eight cities from earlier training and scores two thousand four later loads, with M A E 141.82 dollars. This stress test is post selection and does not measure actual November or December accuracy.",
+      "wave_path": "C:\\Users\\HenVo\\Downloads\\freight-rate-assessment-solution\\reports\\video_assets\\male_voice\\fitted_04.wav",
+      "image_path": "C:\\Users\\HenVo\\Downloads\\freight-rate-assessment-solution\\reports\\video_assets\\slide_04.png",
+      "audio_seconds": 26.5689,
+      "start_seconds": 73.8333,
+      "duration_seconds": 27.25
+    },
+    {
+      "number": 5,
+      "narration": "Features create the invalid weight flag without modifying source files. The model fits numerical medians on its training partition, reuses those medians at prediction, and transforms the target into log dollars per mile. The highlighted inference line restores dollars. A one dollar floor ensures feasibility, without removing training labels. The pipeline command generates models, predictions, the supplied scorer's chart, and the PDF report.",
+      "wave_path": "C:\\Users\\HenVo\\Downloads\\freight-rate-assessment-solution\\reports\\video_assets\\male_voice\\fitted_05.wav",
+      "image_path": "C:\\Users\\HenVo\\Downloads\\freight-rate-assessment-solution\\reports\\video_assets\\slide_05.png",
+      "audio_seconds": 24.0698,
+      "start_seconds": 101.0833,
+      "duration_seconds": 24.75
+    },
+    {
+      "number": 6,
+      "narration": "The December chart uses a dedicated model trained on pickup, delivery, distance, equipment, weight, and date. The Lexington to Fort Wayne scenario changes only its date, without inventing missing market or quote values. December labels are unavailable, so this is a scenario, not measured future accuracy. The submission contains twelve thousand matched load identifiers and predictions. The scorer validates formatting; the assessor computes accuracy after submission.",
+      "wave_path": "C:\\Users\\HenVo\\Downloads\\freight-rate-assessment-solution\\reports\\video_assets\\male_voice\\fitted_06.wav",
+      "image_path": "C:\\Users\\HenVo\\Downloads\\freight-rate-assessment-solution\\reports\\video_assets\\slide_06.png",
+      "audio_seconds": 24.5895,
+      "start_seconds": 125.8333,
+      "duration_seconds": 25.291666666666668
+    }
+  ],
+  "voice_replacement": {
+    "source_video": "reports/walkthrough.mp4",
+    "source_mp4_sha256": "16efdc4e95f05acb9a816030c698a95f9d1096ca2a71219b603ae507fac2d308",
+    "source_voice": "Microsoft Zira Desktop",
+    "video_stream_sha256": "51d85d550df10f53be8e6baf7a702acf7c4fcf2d23c98f1939701d1c9c9e68e2",
+    "timed_video_packet_table_sha256": "de476dbd4ea904c72786c5dc34a88cb7fd99b0d464fd9a0d7ad595238a657442",
+    "video_packet_payloads_and_timestamps_identical": true,
+    "narration_text_unchanged": true,
+    "audio_fit": [
+      {
+        "number": 1,
+        "original_speech_seconds": 23.345,
+        "raw_male_speech_seconds": 23.928707,
+        "tempo_factor": 1.0250035332188134,
+        "original_slide_seconds": 24.041666666666668,
+        "fitted_segment_seconds": 24.041678004535147,
+        "wave_path": "C:\\Users\\HenVo\\Downloads\\freight-rate-assessment-solution\\reports\\video_assets\\male_voice\\fitted_01.wav"
+      },
+      {
+        "number": 2,
+        "original_speech_seconds": 25.6595,
+        "raw_male_speech_seconds": 26.139048,
+        "tempo_factor": 1.018688891796318,
+        "original_slide_seconds": 26.375,
+        "fitted_segment_seconds": 26.375011337868482,
+        "wave_path": "C:\\Users\\HenVo\\Downloads\\freight-rate-assessment-solution\\reports\\video_assets\\male_voice\\fitted_02.wav"
+      },
+      {
+        "number": 3,
+        "original_speech_seconds": 22.7098,
+        "raw_male_speech_seconds": 23.199864,
+        "tempo_factor": 1.0215794038511228,
+        "original_slide_seconds": 23.416666666666668,
+        "fitted_segment_seconds": 23.416643990929707,
+        "wave_path": "C:\\Users\\HenVo\\Downloads\\freight-rate-assessment-solution\\reports\\video_assets\\male_voice\\fitted_03.wav"
+      },
+      {
+        "number": 4,
+        "original_speech_seconds": 26.5689,
+        "raw_male_speech_seconds": 27.416508,
+        "tempo_factor": 1.0319022592771223,
+        "original_slide_seconds": 27.25,
+        "fitted_segment_seconds": 27.25002267573696,
+        "wave_path": "C:\\Users\\HenVo\\Downloads\\freight-rate-assessment-solution\\reports\\video_assets\\male_voice\\fitted_04.wav"
+      },
+      {
+        "number": 5,
+        "original_speech_seconds": 24.0698,
+        "raw_male_speech_seconds": 24.482449,
+        "tempo_factor": 1.0171438474599637,
+        "original_slide_seconds": 24.75,
+        "fitted_segment_seconds": 24.75002267573696,
+        "wave_path": "C:\\Users\\HenVo\\Downloads\\freight-rate-assessment-solution\\reports\\video_assets\\male_voice\\fitted_05.wav"
+      },
+      {
+        "number": 6,
+        "original_speech_seconds": 24.5895,
+        "raw_male_speech_seconds": 25.067347,
+        "tempo_factor": 1.0194329668669762,
+        "original_slide_seconds": 25.291666666666668,
+        "fitted_segment_seconds": 25.291655328798186,
+        "wave_path": "C:\\Users\\HenVo\\Downloads\\freight-rate-assessment-solution\\reports\\video_assets\\male_voice\\fitted_06.wav"
+      }
+    ],
+    "timing_policy": "Fit male speech to each original speech window without pitch shift, preserving original slide intervals."
+  }
+}
